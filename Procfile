@@ -1,1 +1,1 @@
-web: ./go-jwt
+web: go run main.go
