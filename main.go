@@ -13,10 +13,9 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/context"
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
-
-	"github.com/gorilla/context"
 )
 
 type User struct {
