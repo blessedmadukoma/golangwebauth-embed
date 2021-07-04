@@ -1,4 +1,4 @@
-module go-jwt
+module go-jwt-embed
 
 go 1.16
 

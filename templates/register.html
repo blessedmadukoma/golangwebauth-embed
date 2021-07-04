@@ -1,4 +1,3 @@
-{{define "Register" }}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,9 +8,13 @@
   <title>Register - Go Auth</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
     integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
+  {{if .err}}
+  <p style="color: red;">{{.err}}</p>
+  {{end}}
   <form id="registerForm" method="POST" action="/registerprocess">
     <div class="form-row form-group">
       <div class="form-group col-md-2">
@@ -79,6 +82,19 @@
       <div class="form-group col-md-2">
       </div>
     </div>
+    <div class="form-row form-group">
+      <div class="form-group col-md-2">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+          placeholder="Confirm Password" required>
+      </div>
+      <div class="form-group col-md-4">
+      </div>
+      <div class="form-group col-md-2">
+      </div>
+    </div>
 
     <div class="form-row form-group">
       <div class="form-group col-md-2">
@@ -101,7 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 
 <script>
-  $('#registerForm').validate({ // initialize the plugin
+  $('#registerForm').validate({
+    errorClass: "error",
     rules: {
       "FirstName": {
         required: true,
@@ -118,7 +135,10 @@
       "password": {
         required: true,
         minlength: 8
-
+      },
+      "confirm_password": {
+        required: true,
+        equalTo: "#password"
       }
     },
     messages: {
@@ -135,18 +155,22 @@
         email: "Email is invalid"
       },
       "password": {
-        required: "Please,enter a password",
+        required: "Please, enter a password",
+        minlength: "Minimum length should be 8"
+      },
+      "confirm_password": {
+        required: "Confirm password does not match password",
         minlength: "Minimum length should be 8"
       }
+    },
+    highlight: function (element) {
+      $(element).parent().addClass('error')
     },
     submitHandler: function (form) {
       form.submit();
     }
-  });
+  }).after();
 </script>
 
 
 </html>
-
-
-{{ end }}
